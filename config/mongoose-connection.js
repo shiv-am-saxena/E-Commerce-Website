@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
-mongoose.connect("mongodb://127.0.0.1:27017/snatch")
+const dbgr = require('debug')("development:mongoose");
+const config = require('config');
+mongoose.connect(`${config.get("MONGODB_URI")}/snatch`)
 .then(function(){
-    console.log("connected to databse");
+    dbgr("connected to databse");
 })
 .catch(function(err){
-    console.error(err,"unable to connect to the database");
+    dbgr(err,"unable to connect to the database");
 })
 module.exports = mongoose.connection;
